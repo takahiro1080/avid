@@ -33,6 +33,7 @@ config_compiler_and_linker()
 
 # add sub directories
 add_subdirectory(src/)
+add_subdirectory(third_party/)
 
 
 # enable unit test
