@@ -77,3 +77,28 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# ==============================
+# User Ignore Files and Folders
+# ==============================
+
+# Build results
+[Bb]in/
+[Bb]uild/
+[Bb]ld/
+[Oo]bj/
+[Pp]db/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+[Mm]in[Ss]ize[Rr]el/
+[Rr]el[Ww]ith[Dd]eb[Ii]nfo/
+x64/
+x86/
+
+# Others
+third_party/
+CMakeFiles/
+
+
