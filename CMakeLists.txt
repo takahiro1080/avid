@@ -16,10 +16,15 @@ project(${project_name} CXX)
 message("add project --- " ${project_name})
 
 
+# include directories
+include_directories(src/)
+
+
 # option
 option(AVID_OPTION_ENABLE_UNIT_TESTS "enable unit tests." OFF)
 option(AVID_OPTION_ENABLE_FRAMEWORK_TESTS "enable framework tests." OFF)
 option(AVID_OPTION_BUILD_SHARED_LIBS "build shared libraries." OFF)
+#option(AVID_OPTION_BUILD_MSVC_WITH_CLANG "build MSVC with Clang." OFF)
 
 
 # property setting

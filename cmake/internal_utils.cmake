@@ -10,7 +10,7 @@
 #		compiler and linker settings
 #-------------------------------------------------------------------------------------------------
 macro(fix_default_compiler_settings)
-	if (MSVC)
+	if(MSVC)
 		foreach(flag_var 
 				CMAKE_CXX_FLAGS 
 				CMAKE_CXX_FLAGS_DEBUG 
@@ -78,16 +78,32 @@ endmacro()
 
 
 #-------------------------------------------------------------------------------------------------
+#		avid_set_target_directory
+#-------------------------------------------------------------------------------------------------
+function(avid_set_target_directory name)
+	get_filename_component(target_directory ${CMAKE_CURRENT_SOURCE_DIR} DIRECTORY)
+	file(RELATIVE_PATH target_directory ${PROJECT_SOURCE_DIR} ${target_directory})
+	string(REPLACE src/ "" target_directory ${target_directory})
+	string(REPLACE src "avid" target_directory ${target_directory})
+	set_target_properties(${name} PROPERTIES FOLDER ${target_directory})
+	message("	folder --- " ${target_directory})
+endfunction()
+
+
+
+#-------------------------------------------------------------------------------------------------
 #		avid_set_target_output_directories
 #-------------------------------------------------------------------------------------------------
 function(avid_set_target_output_directories name)
-	set(output_directory ${AVID_OPTION_OUTBUT_DIRECTORY}/$<CONFIG>)
-	message("	output directory --- " ${output_directory})
-	set_target_properties(${name} PROPERTIES
-		ARCHIVE_OUTPUT_DIRECTORY ${output_directory}
-		LIBRARY_OUTPUT_DIRECTORY ${output_directory}
-		RUNTIME_OUTPUT_DIRECTORY ${output_directory}
-		PDB_OUTPUT_DIRECTORY ${output_directory}/pdb)
+	if(NOT MSVC)
+		set(output_directory ${AVID_OPTION_OUTBUT_DIRECTORY}/$<CONFIG>)
+		message("	output directory --- " ${output_directory})
+		set_target_properties(${name} PROPERTIES
+			ARCHIVE_OUTPUT_DIRECTORY ${output_directory}
+			LIBRARY_OUTPUT_DIRECTORY ${output_directory}
+			RUNTIME_OUTPUT_DIRECTORY ${output_directory}
+			PDB_OUTPUT_DIRECTORY ${output_directory}/pdb)
+	endif()
 endfunction()
 
 
@@ -121,9 +137,15 @@ function(avid_install_target_source_files sources extentions ignore_dirs)
 		if(is_install EQUAL 1)
 			get_filename_component(directory ${source} DIRECTORY)
 			get_filename_component(install_source ${source} NAME)
-			file(RELATIVE_PATH install_dir ${CMAKE_CURRENT_SOURCE_DIR} ${directory})
-			install(FILES ${source} DESTINATION include/${install_dir})
-			message("	install --- " ${CMAKE_INSTALL_PREFIX}/include/${install_dir}/${install_source})
+			file(RELATIVE_PATH install_dir ${PROJECT_SOURCE_DIR}/src ${directory})
+			if(install_dir STREQUAL "")
+				install(FILES ${source} DESTINATION include/)
+				message("	install --- " ${CMAKE_INSTALL_PREFIX}/include/${install_source})
+			else()
+				install(FILES ${source} DESTINATION include/${install_dir})
+				message("	install --- " ${CMAKE_INSTALL_PREFIX}/include/${install_dir}/${install_source})
+			endif()
+			
 		endif()
 	endforeach()
 endfunction()
@@ -136,11 +158,14 @@ endfunction()
 function(avid_create_target_source_group name sources)
 	foreach(source IN LISTS sources)
 		get_filename_component(dir ${source} DIRECTORY)
-		file(RELATIVE_PATH path ${CMAKE_CURRENT_SOURCE_DIR} ${dir})
+		get_filename_component(current_dir ${CMAKE_CURRENT_SOURCE_DIR} DIRECTORY)
+		file(RELATIVE_PATH path ${current_dir} ${dir})
 		if(path)
 			string(REPLACE / \\ group_dir ${path})
+		else()
+			set(group_dir "..\\")
 		endif()
-		source_group(${name}\\${group_dir} FILES ${source})
+		source_group("source files\\${group_dir}" FILES ${source})
 	endforeach()
 endfunction()
 
@@ -173,13 +198,13 @@ endfunction()
 #-------------------------------------------------------------------------------------------------
 #		avid_set_target_folder
 #-------------------------------------------------------------------------------------------------
-function(avid_set_target_folder name)
-	if(USE_FOLDERS)
-		file(RELATIVE_PATH folder ${PROJECT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
-		set_target_properties(${name} PROPERTIES FOLDER ${folder})
-		message("	folder --- " ${folder})
-	endif()
-endfunction()
+#function(avid_set_target_folder name)
+#	if(USE_FOLDERS)
+#		file(RELATIVE_PATH folder ${PROJECT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+#		set_target_properties(${name} PROPERTIES FOLDER ${folder})
+#		message("	folder --- " ${folder})
+#	endif()
+#endfunction()
 
 
 
@@ -189,6 +214,10 @@ endfunction()
 function(avid_library_with_type_flags_libs name type flags libs)
 	message("add library --- " ${name})
 	add_library(${name} ${ARGN})
+	
+	foreach(source IN LISTS ARGN)
+		message("	files --- " ${source})
+	endforeach()
 	
 	# type
 	message("	type --- " ${type})
@@ -203,16 +232,19 @@ function(avid_library_with_type_flags_libs name type flags libs)
 	avid_target_link_libs("${name}" "${libs}")
 	
 	# folders
-	avid_set_target_folder("${name}")
+	#avid_set_target_folder("${name}")
 	
 	# source group
 	avid_create_target_source_group("${name}" "${ARGN}")
 	
 	# install
-	avid_install_target_source_files("${files}" .hpp detail)
+	avid_install_target_source_files("${ARGN}" .hpp detail)
 	
 	# output
 	avid_set_target_output_directories("${name}")
+	
+	# target directory
+	avid_set_target_directory("${name}")
 	
 endfunction()
 
@@ -264,7 +296,8 @@ endfunction()
 #-------------------------------------------------------------------------------------------------
 function(avid_library name)
 	file(GLOB_RECURSE files *.cpp *.hpp)
-	avid_library_ex("${name}" "${ARGN}" "${files}")
+	get_filename_component(parent_dir ${CMAKE_CURRENT_SOURCE_DIR} DIRECTORY)
+	avid_library_ex("${name}" "${ARGN}" "${files}" "${parent_dir}/${name}.hpp")
 endfunction()
 
 
@@ -285,13 +318,16 @@ function(avid_executable_with_flags_libs name flags libs)
 	avid_target_link_libs("${name}" "${libs}")
 	
 	# folders
-	avid_set_target_folder("${name}")
+	#avid_set_target_folder("${name}")
 	
 	# source group
 	avid_create_target_source_group("${name}" "${ARGN}")
 	
 	# output
 	avid_set_target_output_directories("${name}")
+	
+	# target directory
+	avid_set_target_directory("${name}")
 	
 endfunction()
 
@@ -323,6 +359,7 @@ endfunction()
 #-------------------------------------------------------------------------------------------------
 function(avid_test_with_flags_libs name flags libs)
 	avid_executable_with_flags_libs("${name}" "${flags}" "${libs}" ${ARGN})
+	avid_set_target_directory("${name}" test)
 	add_test(${name} ${name})
 endfunction()
 

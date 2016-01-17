@@ -6,7 +6,8 @@
 #*************************************************************************************************
 
 
-avid_executable(avid_main)
+# avid_main
+avid_executable(avid_main avid)
 
 
 

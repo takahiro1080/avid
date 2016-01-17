@@ -1,12 +1,75 @@
 
 #*************************************************************************************************
 #
-#	avid/src/CMakeLists.txt
+#	avid/src/avid/CMakeLists.txt
 #
 #*************************************************************************************************
 
-# add sub dirctories
-add_subdirectory(avid/)
-add_subdirectory(avid_main/)
+
+# add sub directories
+add_subdirectory(platform/)
+
+
+# avid
+avid_library(avid)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
