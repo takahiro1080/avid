@@ -20,14 +20,6 @@
 #define AVID_OS_WINDOWS_AVAILABLE
 #define AVID_OS_DETECTED 1
 
-
-#ifndef AVID_OS_NAME
-
-#define AVID_OS_NAME AVID_OS_WINDOWS_NAME
-
-#endif // AVID_OS_NAME
-
-
 #endif
 
 

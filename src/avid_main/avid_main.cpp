@@ -3,8 +3,11 @@
 // Distributed under the MIT license. See LICENSE file for details.
 //***********************************************************************
 
+// declaration headers
+
 // C library headers
 #include <cstdio>
+#include <cstdint>
 
 // C++ library headers
 #include <iostream>
@@ -81,18 +84,21 @@ void PrintBuildInfo() {
 #endif // #if defined(_DEBUG) || defined(DEBUG)
 
 
-#ifdef AVID_OS_NAME
+    cout << "Operating-System --- " << avid::platform::os::GetOSName() << endl;
 
-    cout << "Operating-System --- " << AVID_OS_NAME << endl;
+    cout << "Compiler --- " << avid::platform::compiler::GetCompiler() << endl;
 
-#endif // #ifdef AVID_OS_NAME
+    {
+        auto&& emulated_compiler_name = avid::platform::compiler::GetEmulatedCompiler();
 
+        cout << "Emulated-Compiler --- ";
 
-#ifdef AVID_COMPILER_NAME
+        for ( auto&& name : emulated_compiler_name ) {
+            cout << name << " ";
 
-    cout << "Compiler --- " << AVID_COMPILER_NAME << endl;
-
-#endif // #ifdef AVID_COMPILER_NAME
+        }
+        cout << endl;
+    }
 
 }
 

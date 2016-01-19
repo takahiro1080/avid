@@ -51,8 +51,8 @@ macro(config_compiler_and_linker)
 		set(cxx_no_rtti_flags "-GR-")
 	elseif(CMAKE_COMPILER_IS_GNUCXX)
 		message("compiler --- GNUCXX")
-		link_directories(C:/MinGW/bin)
-		set(cxx_base_flags "-Wall -Wshadow")
+		#link_directories(${PROJECT_SOURCE_DIR}/build/libs)
+		set(cxx_base_flags "-Wall -Wshadow -std=gnu++11")
 		set(cxx_exception_flags "-fexceptions")
 		set(cxx_no_exception_flags "-fno-exceptions")
 		set(cxx_no_rtti_flags "-fno-rtti -DGTEST_HAS_RTTI=0")
@@ -95,14 +95,16 @@ endfunction()
 #		avid_set_target_output_directories
 #-------------------------------------------------------------------------------------------------
 function(avid_set_target_output_directories name)
-	if(NOT MSVC)
-		set(output_directory ${AVID_OPTION_OUTBUT_DIRECTORY}/$<CONFIG>)
+	if(CMAKE_COMPILER_IS_GNUCXX)
+		set(output_directory ${AVID_OPTION_OUTBUT_DIRECTORY})
 		message("	output directory --- " ${output_directory})
 		set_target_properties(${name} PROPERTIES
 			ARCHIVE_OUTPUT_DIRECTORY ${output_directory}
 			LIBRARY_OUTPUT_DIRECTORY ${output_directory}
 			RUNTIME_OUTPUT_DIRECTORY ${output_directory}
 			PDB_OUTPUT_DIRECTORY ${output_directory}/pdb)
+		get_filename_component(compiler_dir ${CMAKE_CXX_COMPILER} DIRECTORY)
+		file(INSTALL "${compiler_dir}/libstdc++-6.dll" DESTINATION ${output_directory})
 	endif()
 endfunction()
 
