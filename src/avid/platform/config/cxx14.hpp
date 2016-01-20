@@ -198,20 +198,5 @@
 #endif // #if !defined(AVID_NO_CXX14_INCLUDE_SHARED_MUTEX)
 
 
-namespace avid {
-namespace platform {
-namespace config {
-
-// get C++14 supported functions
-std::vector<std::string> Get_CXX14SupportedFunctions();
-
-// get C++14 unsupported functions
-std::vector<std::string> Get_CXX14UnsupportedFunctions();
-
-} // namespace config
-} // namespace platform
-} // namespace avid
-
-
 #endif // #ifndef INCLUDE_GUARD_AVID_PLATFORM_CONFIG_CXX14_HPP
 

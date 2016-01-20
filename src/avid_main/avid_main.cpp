@@ -84,14 +84,14 @@ void PrintBuildInfo() {
 #endif // #if defined(_DEBUG) || defined(DEBUG)
 
 
-    cout << "Operating-System --- " << avid::platform::os::GetOSName() << endl;
+    cout << "Operating-System --- " << avid::platform::os::Get_OSName() << endl;
 
-    cout << "CPU-Architecture --- " << avid::platform::architecture::GetArchitecture() << endl;
+    cout << "CPU-Architecture --- " << avid::platform::architecture::Get_Architecture() << endl;
 
-    cout << "Compiler --- " << avid::platform::compiler::GetCompiler() << endl;
+    cout << "Compiler --- " << avid::platform::compiler::Get_Compiler() << endl;
 
     {
-        auto&& emulated_compiler_name = avid::platform::compiler::GetEmulatedCompiler();
+        auto&& emulated_compiler_name = avid::platform::compiler::Get_EmulatedCompiler();
 
         cout << "Emulated-Compiler --- ";
 

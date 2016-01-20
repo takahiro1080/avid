@@ -21,20 +21,5 @@
 #endif
 
 
-namespace avid {
-namespace platform {
-namespace config {
-
-// get C++98 supported functions
-std::vector<std::string> Get_CXX98SupportedFunctions();
-
-// get C++98 unsupported functions
-std::vector<std::string> Get_CXX98UnsupportedFunctions();
-
-} // namespace config
-} // namespace platform
-} // namespace avid
-
-
 #endif // #ifndef INCLUDE_GUARD_AVID_PLATFORM_CONFIG_CXX98_HPP
 
