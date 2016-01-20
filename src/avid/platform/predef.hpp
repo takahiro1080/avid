@@ -10,6 +10,8 @@
 
 #include "avid/platform/predef/compiler.hpp"
 
+#include "avid/platform/predef/architecture.hpp"
+
 
 #endif // INCLUDE_GUARD_AVID_PLATFORM_PREDEF_HPP
 

@@ -10,6 +10,7 @@
 
 // C++ library headers
 #include <sstream>
+#include <iostream>
 
 // other library headers
 
@@ -21,18 +22,6 @@
 namespace avid {
 namespace platform {
 namespace compiler {
-
-namespace {
-
-// make compiler version
-std::string MakeCompilerVersion(std::uint32_t version) {
-
-    std::stringstream ss;
-    ss << version / 1000000 << "." << (version % 100000) / 10000 << "." << version % 10000;
-    return ss.str();
-}
-
-} // unnamed namespace
 
 
 // get compiler name
@@ -55,7 +44,6 @@ std::string GetCompilerName() {
     return "Cannot determine compiler.";
 
 #endif
-
 }
 
 
@@ -65,15 +53,15 @@ std::string GetCompilerVersion() {
     std::stringstream ss;
 #if AVID_COMPILER_CLANG
 
-    return MakeCompilerVersion(AVID_COMPILER_CLANG);
+    return MakeVersionString(AVID_COMPILER_CLANG);
 
 #elif AVID_COMPILER_GNUC
 
-    return MakeCompilerVersion(AVID_COMPILER_GNUC);
+    return MakeVersionString(AVID_COMPILER_GNUC);
 
 #elif AVID_COMPILER_MSVC
 
-    return MakeCompilerVersion(AVID_COMPILER_MSVC);
+    return MakeVersionString(AVID_COMPILER_MSVC);
 
 #else
 
@@ -99,19 +87,19 @@ std::vector<std::string> GetEmulatedCompiler() {
 #if defined(AVID_COMPILER_CLANG_EMULATED)
 
     str = AVID_COMPILER_CLANG_NAME;
-    str += "(" + MakeCompilerVersion(AVID_COMPILER_CLANG_EMULATED) + ")";
+    str += "(" + MakeVersionString(AVID_COMPILER_CLANG_EMULATED) + ")";
     result.push_back(str);
 
 #elif defined(AVID_COMPILER_GNUC_EMULATED)
 
     str = AVID_COMPILER_GNUC_NAME;
-    str += "(" + MakeCompilerVersion(AVID_COMPILER_GNUC_EMULATED) + ")";
+    str += "(" + MakeVersionString(AVID_COMPILER_GNUC_EMULATED) + ")";
     result.push_back(str);
 
 #elif defined(AVID_COMPILER_MSVC_EMULATED)
 
     str = AVID_COMPILER_MSVC_NAME;
-    str += "(" + MakeCompilerVersion(AVID_COMPILER_MSVC_EMULATED) + ")";
+    str += "(" + MakeVersionString(AVID_COMPILER_MSVC_EMULATED) + ")";
     result.push_back(str);
 
 #else

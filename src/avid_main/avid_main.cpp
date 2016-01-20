@@ -86,6 +86,8 @@ void PrintBuildInfo() {
 
     cout << "Operating-System --- " << avid::platform::os::GetOSName() << endl;
 
+    cout << "CPU-Architecture --- " << avid::platform::architecture::GetArchitecture() << endl;
+
     cout << "Compiler --- " << avid::platform::compiler::GetCompiler() << endl;
 
     {
