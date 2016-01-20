@@ -21,7 +21,7 @@ namespace architecture {
 
 
 // get architecture name
-std::string GetArchitectureName() {
+std::string Get_ArchitectureName() {
 
 #if AVID_ARCHITECTURE_X86_32
 
@@ -36,11 +36,11 @@ std::string GetArchitectureName() {
 
 
 // get architecture version
-std::string GetArchitectureVersion() {
+std::string Get_ArchitectureVersion() {
 
 #if AVID_ARCHITECTURE_X86_32
 
-    return MakeVersionString(AVID_ARCHITECTURE_X86_32);
+    return Make_VersionString(AVID_ARCHITECTURE_X86_32);
 
 #else
 
@@ -52,9 +52,9 @@ std::string GetArchitectureVersion() {
 
 
 // get architecture
-std::string GetArchitecture() {
+std::string Get_Architecture() {
 
-    return GetArchitectureName() + "(" + GetArchitectureVersion() + ")";
+    return Get_ArchitectureName() + "(" + Get_ArchitectureVersion() + ")";
 
 }
 

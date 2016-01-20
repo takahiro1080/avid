@@ -25,7 +25,7 @@ namespace compiler {
 
 
 // get compiler name
-std::string GetCompilerName() {
+std::string Get_CompilerName() {
 
 #if AVID_COMPILER_CLANG
 
@@ -48,20 +48,20 @@ std::string GetCompilerName() {
 
 
 // get compiler version
-std::string GetCompilerVersion() {
+std::string Get_CompilerVersion() {
 
     std::stringstream ss;
 #if AVID_COMPILER_CLANG
 
-    return MakeVersionString(AVID_COMPILER_CLANG);
+    return Make_VersionString(AVID_COMPILER_CLANG);
 
 #elif AVID_COMPILER_GNUC
 
-    return MakeVersionString(AVID_COMPILER_GNUC);
+    return Make_VersionString(AVID_COMPILER_GNUC);
 
 #elif AVID_COMPILER_MSVC
 
-    return MakeVersionString(AVID_COMPILER_MSVC);
+    return Make_VersionString(AVID_COMPILER_MSVC);
 
 #else
 
@@ -72,14 +72,14 @@ std::string GetCompilerVersion() {
 
 
 // get compiler
-std::string GetCompiler() {
+std::string Get_Compiler() {
 
-    return GetCompilerName() + "(" + GetCompilerVersion() + ")";
+    return Get_CompilerName() + "(" + Get_CompilerVersion() + ")";
 }
 
 
 // get emulated compiler name
-std::vector<std::string> GetEmulatedCompiler() {
+std::vector<std::string> Get_EmulatedCompiler() {
 
     std::vector<std::string> result;
     std::string str = "";
@@ -87,19 +87,19 @@ std::vector<std::string> GetEmulatedCompiler() {
 #if defined(AVID_COMPILER_CLANG_EMULATED)
 
     str = AVID_COMPILER_CLANG_NAME;
-    str += "(" + MakeVersionString(AVID_COMPILER_CLANG_EMULATED) + ")";
+    str += "(" + Make_VersionString(AVID_COMPILER_CLANG_EMULATED) + ")";
     result.push_back(str);
 
 #elif defined(AVID_COMPILER_GNUC_EMULATED)
 
     str = AVID_COMPILER_GNUC_NAME;
-    str += "(" + MakeVersionString(AVID_COMPILER_GNUC_EMULATED) + ")";
+    str += "(" + Make_VersionString(AVID_COMPILER_GNUC_EMULATED) + ")";
     result.push_back(str);
 
 #elif defined(AVID_COMPILER_MSVC_EMULATED)
 
     str = AVID_COMPILER_MSVC_NAME;
-    str += "(" + MakeVersionString(AVID_COMPILER_MSVC_EMULATED) + ")";
+    str += "(" + Make_VersionString(AVID_COMPILER_MSVC_EMULATED) + ")";
     result.push_back(str);
 
 #else

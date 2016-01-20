@@ -2,14 +2,16 @@
 // Copyright (c) 2015 takahiro1080.
 // Distributed under the MIT license. See LICENSE file for details.
 //***********************************************************************
-#ifndef INCLUDE_GUARD_AVID_PLATFORM_HPP
-#define INCLUDE_GUARD_AVID_PLATFORM_HPP
+#ifndef INCLUDE_GUARD_AVID_PLATFORM_CONFIG_HPP
+#define INCLUDE_GUARD_AVID_PLATFORM_CONFIG_HPP
 
 
-#include "avid/platform/predef.hpp"
+#include "config/cxx98.hpp"
 
-#include "avid/platform/config.hpp"
+#include "config/cxx11.hpp"
+
+#include "config/cxx14.hpp"
 
 
-#endif // INCLUDE_GUARD_AVID_PLATFORM_HPP
+#endif // #ifndef INCLUDE_GUARD_AVID_PLATFORM_CONFIG_HPP
 

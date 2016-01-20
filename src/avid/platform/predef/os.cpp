@@ -11,7 +11,7 @@ namespace os {
 
 
 // get operating-system name
-std::string GetOSName() {
+std::string Get_OSName() {
 
 #if AVID_OS_WINDOWS
 

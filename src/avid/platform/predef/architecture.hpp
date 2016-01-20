@@ -15,13 +15,13 @@ namespace platform {
 namespace architecture {
 
 // get architecture name
-std::string GetArchitectureName();
+std::string Get_ArchitectureName();
 
 // get architecture version
-std::string GetArchitectureVersion();
+std::string Get_ArchitectureVersion();
 
 // get architecture
-std::string GetArchitecture();
+std::string Get_Architecture();
 
 } // namespace architecture
 } // namespace platform

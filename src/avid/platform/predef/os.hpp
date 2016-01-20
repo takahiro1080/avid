@@ -15,7 +15,7 @@ namespace platform {
 namespace os {
 
 // get operating-system name
-std::string GetOSName();
+std::string Get_OSName();
 
 } // namespace os
 } // namespace platform

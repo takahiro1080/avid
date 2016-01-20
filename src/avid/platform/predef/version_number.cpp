@@ -20,7 +20,7 @@ namespace avid {
 
 
 // make version string
-std::string MakeVersionString(std::uint32_t version) {
+std::string Make_VersionString(std::uint32_t version) {
 
     std::uint32_t major, minor, patch;
 

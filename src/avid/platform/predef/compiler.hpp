@@ -21,16 +21,16 @@ namespace platform {
 namespace compiler {
 
 // get compiler name
-std::string GetCompilerName();
+std::string Get_CompilerName();
 
 // get compiler version
-std::string GetCompilerVersion();
+std::string Get_CompilerVersion();
 
 // get compiler
-std::string GetCompiler();
+std::string Get_Compiler();
 
 // get emulated compiler
-std::vector<std::string> GetEmulatedCompiler();
+std::vector<std::string> Get_EmulatedCompiler();
 
 } // namespace compiler
 } // namespace platform
